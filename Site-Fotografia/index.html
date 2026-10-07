@@ -1,0 +1,3758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SAEPVision</title>
+
+
+<style>
+
+
+
+:root{
+
+  --white:#ffffff;
+  --black:#000000;
+  --red:#ff0000;
+  --gray:#666666;
+  --light-gray:#eeeeee;
+
+}
+
+
+
+
+*{
+
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+
+}
+
+
+body{
+
+  font-family:
+    'Segoe UI',
+    Arial,
+    sans-serif;
+
+  background:var(--white);
+
+  color:var(--black);
+
+  min-height:100vh;
+
+}
+
+
+button{
+
+  font-family:inherit;
+  cursor:pointer;
+
+}
+
+
+.hidden{
+
+  display:none !important;
+
+}
+
+
+header.app-header{
+
+  background:var(--black);
+
+  color:var(--white);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:14px 30px;
+
+  position:sticky;
+
+  top:0;
+
+  z-index:50;
+
+  box-shadow:
+    0 3px 18px rgba(0,0,0,.14);
+
+}
+
+
+.user-section{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  min-width:220px;
+
+}
+
+
+.user-section img.avatar{
+
+  width:40px;
+  height:40px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
+  border:2px solid var(--white);
+
+  background:#333;
+
+}
+
+
+.user-section .user-name{
+
+  font-size:14px;
+
+  line-height:1.2;
+
+}
+
+
+.user-section .user-name small{
+
+  display:block;
+
+  opacity:.7;
+
+  font-size:11px;
+
+}
+
+
+.btn-ver-perfil{
+
+  background:transparent;
+
+  border:1px solid var(--white);
+
+  color:var(--white);
+
+  padding:7px 13px;
+
+  border-radius:999px;
+
+  font-size:13px;
+
+  transition:.2s;
+
+}
+
+
+.btn-ver-perfil:hover:not(:disabled){
+
+  background:var(--white);
+
+  color:var(--black);
+
+}
+
+
+.btn-ver-perfil:disabled{
+
+  opacity:.35;
+
+  cursor:not-allowed;
+
+}
+
+
+.company-section{
+
+  flex:1;
+
+  text-align:center;
+
+  font-size:24px;
+
+  font-weight:700;
+
+  letter-spacing:1.5px;
+
+}
+
+
+.login-section{
+
+  min-width:220px;
+
+  display:flex;
+
+  justify-content:flex-end;
+
+}
+
+
+.btn-login-header,
+.btn-logout{
+
+  background:var(--white);
+
+  color:var(--black);
+
+  border:none;
+
+  padding:9px 20px;
+
+  border-radius:999px;
+
+  font-weight:600;
+
+  font-size:14px;
+
+  transition:.2s;
+
+}
+
+
+.btn-login-header:hover,
+.btn-logout:hover{
+
+  transform:translateY(-1px);
+
+}
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+main{
+
+  max-width:1180px;
+
+  margin:0 auto;
+
+  padding:34px 24px;
+
+  min-height:calc(100vh - 150px);
+
+}
+
+
+/* =========================================================
+   BUSCA
+   ========================================================= */
+
+.search-bar{
+
+  position:relative;
+
+  max-width:620px;
+
+  margin:0 auto 34px;
+
+}
+
+
+.search-bar input{
+
+  width:100%;
+
+  padding:14px 48px 14px 18px;
+
+  border:1px solid #bbb;
+
+  border-radius:999px;
+
+  font-size:14px;
+
+  outline:none;
+
+  background:#fff;
+
+  box-shadow:
+    0 4px 18px rgba(0,0,0,.06);
+
+}
+
+
+.search-bar input:focus{
+
+  border-color:#000;
+
+  box-shadow:
+    0 0 0 4px rgba(0,0,0,.08);
+
+}
+
+
+.search-bar svg{
+
+  position:absolute;
+
+  right:16px;
+
+  top:50%;
+
+  transform:translateY(-50%);
+
+  width:18px;
+
+  height:18px;
+
+  pointer-events:none;
+
+}
+
+
+.search-message{
+
+  text-align:center;
+
+  padding:30px 0;
+
+  font-size:15px;
+
+  color:#555;
+
+}
+
+
+/* =========================================================
+   GALERIA
+   ========================================================= */
+
+.gallery{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:24px;
+
+}
+
+
+@media(max-width:800px){
+
+  .gallery{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+}
+
+
+@media(max-width:520px){
+
+  .gallery{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.card{
+
+  border:1px solid #ddd;
+
+  border-radius:14px;
+
+  overflow:hidden;
+
+  background:var(--white);
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,.06);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+
+}
+
+
+.card:hover{
+
+  transform:translateY(-4px);
+
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.12);
+
+}
+
+
+.card .img-wrap{
+
+  position:relative;
+
+  width:100%;
+
+  height:240px;
+
+  overflow:hidden;
+
+  background:#eee;
+
+}
+
+
+.card .img-wrap img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+
+  transition:
+    transform .3s ease;
+
+}
+
+
+.card:hover .img-wrap img{
+
+  transform:scale(1.05);
+
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DA FOTO
+   ========================================================= */
+
+.card-info-overlay{
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  padding:18px;
+
+  color:white;
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(0,0,0,.92)
+    );
+
+  opacity:0;
+
+  transform:translateY(15px);
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+
+}
+
+
+.card:hover .card-info-overlay{
+
+  opacity:1;
+
+  transform:translateY(0);
+
+}
+
+
+.card-info-overlay h3{
+
+  font-size:18px;
+
+  margin-bottom:4px;
+
+}
+
+
+.card-info-overlay p{
+
+  font-size:14px;
+
+  margin-bottom:3px;
+
+}
+
+
+.card-info-overlay small{
+
+  font-size:12px;
+
+  opacity:.85;
+
+}
+
+
+/* =========================================================
+   CURTIDA
+   ========================================================= */
+
+.like-box{
+
+  position:absolute;
+
+  top:12px;
+  right:12px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:5px;
+
+  background:rgba(255,255,255,.92);
+
+  border:none;
+
+  border-radius:999px;
+
+  padding:7px 10px;
+
+  opacity:0;
+
+  transform:translateY(-5px);
+
+  transition:.2s;
+
+}
+
+
+.card:hover .like-box{
+
+  opacity:1;
+
+  transform:translateY(0);
+
+}
+
+
+.like-box svg{
+
+  width:20px;
+  height:20px;
+
+}
+
+
+.like-count{
+
+  font-size:13px;
+
+  font-weight:600;
+
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer{
+
+  background:var(--black);
+
+  color:var(--white);
+
+  display:grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items:center;
+
+  padding:20px 30px;
+
+  margin-top:40px;
+
+}
+
+
+.footer-left{
+
+  font-weight:700;
+
+  letter-spacing:1px;
+
+}
+
+
+.socials{
+
+  grid-column:2;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:20px;
+
+}
+
+
+.socials svg{
+
+  width:25px;
+  height:25px;
+
+  fill:var(--white);
+
+  transition:.2s;
+
+}
+
+
+.socials svg:hover{
+
+  transform:
+    translateY(-2px)
+    scale(1.08);
+
+}
+
+
+footer > span{
+
+  grid-column:3;
+
+  text-align:right;
+
+  font-size:13px;
+
+}
+
+
+/* =========================================================
+   MODAL LOGIN
+   ========================================================= */
+
+.modal-overlay{
+
+  position:fixed;
+
+  inset:0;
+
+  background:rgba(0,0,0,.62);
+
+  backdrop-filter:blur(3px);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  z-index:2000;
+
+}
+
+
+.modal-box{
+
+  background:var(--white);
+
+  border-radius:18px;
+
+  width:340px;
+
+  max-width:90vw;
+
+  padding:30px;
+
+  position:relative;
+
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.25);
+
+}
+
+
+.modal-close{
+
+  position:absolute;
+
+  top:10px;
+  right:14px;
+
+  background:none;
+
+  border:none;
+
+  font-size:22px;
+
+  font-weight:700;
+
+}
+
+
+.modal-box h2{
+
+  text-align:center;
+
+  font-size:20px;
+
+  margin-bottom:18px;
+
+}
+
+
+.field{
+
+  margin-bottom:14px;
+
+}
+
+
+.field label{
+
+  display:block;
+
+  font-size:13px;
+
+  font-weight:600;
+
+  margin-bottom:5px;
+
+}
+
+
+.field input{
+
+  width:100%;
+
+  padding:11px 12px;
+
+  border:1px solid #bbb;
+
+  border-radius:9px;
+
+  font-size:14px;
+
+  outline:none;
+
+}
+
+
+.field input:focus{
+
+  border-color:#000;
+
+}
+
+
+.field-error{
+
+  color:var(--red);
+
+  font-size:12px;
+
+  margin-top:4px;
+
+  min-height:14px;
+
+}
+
+
+.form-error{
+
+  color:var(--red);
+
+  font-size:13px;
+
+  text-align:center;
+
+  margin-top:6px;
+
+  min-height:16px;
+
+}
+
+
+.modal-actions{
+
+  display:flex;
+
+  justify-content:flex-end;
+
+  gap:10px;
+
+  margin-top:18px;
+
+}
+
+
+.btn-cancel{
+
+  background:transparent;
+
+  border:1px solid #bbb;
+
+  padding:10px 16px;
+
+  border-radius:9px;
+
+}
+
+
+.btn-submit{
+
+  background:var(--black);
+
+  color:var(--white);
+
+  border:none;
+
+  padding:10px 20px;
+
+  border-radius:9px;
+
+  font-weight:600;
+
+}
+
+
+/* =========================================================
+   FUNDO DA SIDEBAR
+   ========================================================= */
+
+.sidebar-overlay{
+
+  position:fixed;
+
+  inset:0;
+
+  background:rgba(0,0,0,.45);
+
+  z-index:999;
+
+}
+
+
+/* =========================================================
+   SIDEBAR DO PERFIL
+   ========================================================= */
+
+#profileSidebar{
+
+  position:fixed;
+
+  top:0;
+
+  right:0;
+
+  width:350px;
+
+  max-width:90vw;
+
+  height:100vh;
+
+  background:#fff;
+
+  z-index:1000;
+
+  overflow-y:auto;
+
+  box-shadow:
+    -8px 0 25px rgba(0,0,0,.18);
+
+  /*
+     FECHADA:
+     fica fora da tela pelo lado DIREITO
+  */
+
+  transform:translateX(100%);
+
+  transition:
+    transform .35s ease;
+
+}
+
+
+/* =========================================================
+   SIDEBAR ABERTA
+   ========================================================= */
+
+#profileSidebar.open{
+
+  /*
+     QUANDO ABRIR:
+     volta para dentro da tela
+  */
+
+  transform:translateX(0);
+
+}
+
+
+/* =========================================================
+   CABEÇALHO DA SIDEBAR
+   ========================================================= */
+
+.sidebar-header{
+
+  padding:20px;
+
+  position:relative;
+
+  border-bottom:1px solid #ddd;
+
+}
+
+
+.sidebar-header .close-btn{
+
+  position:absolute;
+
+  top:12px;
+  right:16px;
+
+  background:none;
+
+  border:none;
+
+  font-size:30px;
+
+  color:#333;
+
+}
+
+
+.sidebar-header h3{
+
+  font-size:18px;
+
+  margin-bottom:14px;
+
+}
+
+
+.sidebar-stats{
+
+  display:flex;
+
+  gap:30px;
+
+}
+
+
+.stat .num{
+
+  font-size:20px;
+
+  font-weight:700;
+
+}
+
+
+.stat .label{
+
+  font-size:12px;
+
+  color:#555;
+
+}
+
+
+/* =========================================================
+   BOTÕES DO PERFIL
+   ========================================================= */
+
+.sidebar-buttons{
+
+  padding:16px 20px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:10px;
+
+}
+
+
+.btn-sidebar{
+
+  width:100%;
+
+  padding:11px;
+
+  border-radius:9px;
+
+  font-size:14px;
+
+  font-weight:600;
+
+  transition:.2s;
+
+}
+
+
+.btn-sidebar:hover{
+
+  transform:translateY(-1px);
+
+}
+
+
+.btn-publicacoes{
+
+  background:var(--white);
+
+  color:var(--black);
+
+  border:1px solid var(--black);
+
+}
+
+
+.btn-nova-pub{
+
+  background:var(--black);
+
+  color:var(--white);
+
+  border:none;
+
+}
+
+
+/* =========================================================
+   PUBLICAÇÕES
+   ========================================================= */
+
+.own-publications{
+
+  padding:0 20px 20px;
+
+}
+
+
+.own-publications-title{
+
+  font-size:15px;
+
+  font-weight:700;
+
+  margin-bottom:12px;
+
+}
+
+
+.own-pub-item{
+
+  display:flex;
+
+  gap:10px;
+
+  align-items:center;
+
+  padding:12px 0;
+
+  border-bottom:1px solid #eee;
+
+}
+
+
+.own-pub-image{
+
+  width:70px;
+  height:55px;
+
+  border-radius:8px;
+
+  object-fit:cover;
+
+  flex-shrink:0;
+
+}
+
+
+.own-pub-info{
+
+  flex:1;
+
+  min-width:0;
+
+}
+
+
+.own-pub-title{
+
+  font-size:13px;
+
+  font-weight:700;
+
+  margin-bottom:3px;
+
+}
+
+
+.own-pub-local{
+
+  font-size:11px;
+
+  color:#666;
+
+}
+
+
+.own-pub-number{
+
+  font-size:11px;
+
+  color:#999;
+
+  margin-bottom:2px;
+
+}
+
+
+.trash-btn{
+
+  background:none;
+
+  border:none;
+
+  flex-shrink:0;
+
+}
+
+
+.trash-btn svg{
+
+  width:19px;
+  height:19px;
+
+  fill:var(--red);
+
+}
+
+
+.empty-msg{
+
+  font-size:13px;
+
+  color:#777;
+
+  padding:20px 0;
+
+  text-align:center;
+
+}
+
+
+/* =========================================================
+   FORMULÁRIO DE PUBLICAÇÃO
+   ========================================================= */
+
+#publishForm{
+
+  margin:0 20px 18px;
+
+  border:1px solid #ddd;
+
+  border-radius:12px;
+
+  padding:15px;
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.05);
+
+}
+
+
+#publishForm h4{
+
+  font-size:15px;
+
+  margin-bottom:12px;
+
+}
+
+
+.file-btn-row{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+}
+
+
+.file-label-btn{
+
+  background:var(--black);
+
+  color:var(--white);
+
+  padding:8px 12px;
+
+  border-radius:8px;
+
+  font-size:12px;
+
+  white-space:nowrap;
+
+  cursor:pointer;
+
+}
+
+
+.file-name{
+
+  font-size:12px;
+
+  color:#555;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media(max-width:800px){
+
+  header.app-header{
+
+    flex-wrap:wrap;
+
+  }
+
+
+  .company-section{
+
+    order:-1;
+
+    width:100%;
+
+    margin-bottom:8px;
+
+  }
+
+
+  footer{
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+    text-align:center;
+
+  }
+
+
+  .footer-left{
+
+    text-align:center;
+
+  }
+
+
+  .socials{
+
+    grid-column:1;
+
+    grid-row:2;
+
+  }
+
+
+  footer > span{
+
+    grid-column:1;
+
+    grid-row:3;
+
+    text-align:center;
+
+  }
+
+}
+
+
+@media(max-width:520px){
+
+  .user-section .user-name{
+
+    display:none;
+
+  }
+
+
+  header.app-header{
+
+    padding:12px 16px;
+
+  }
+
+
+  #profileSidebar{
+
+    width:90vw;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     HEADER
+     ======================================================= -->
+
+<header class="app-header">
+
+  <div class="user-section" id="userSection">
+
+    <img
+      class="avatar"
+      id="headerAvatar"
+      src="https://api.dicebear.com/7.x/identicon/svg?seed=guest"
+      alt="Avatar"
+    >
+
+    <div class="user-name" id="headerUserName">
+
+      Visitante
+
+      <small>@saepvision</small>
+
+    </div>
+
+    <button
+      class="btn-ver-perfil"
+      id="btnVerPerfil"
+      disabled
+    >
+
+      Ver perfil
+
+    </button>
+
+  </div>
+
+
+  <div class="company-section">
+
+    SAEPVision
+
+  </div>
+
+
+  <div class="login-section">
+
+    <button
+      class="btn-login-header"
+      id="btnAbrirLogin"
+    >
+
+      Login
+
+    </button>
+
+    <button
+      class="btn-logout hidden"
+      id="btnLogout"
+    >
+
+      Logout
+
+    </button>
+
+  </div>
+
+</header>
+
+
+
+<!-- =======================================================
+     CONTEÚDO
+     ======================================================= -->
+
+<main>
+
+
+  <div class="search-bar">
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Digite o nome do fotógrafo ex: @fotografo1"
+    >
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#000"
+      stroke-width="2"
+    >
+
+      <circle
+        cx="11"
+        cy="11"
+        r="7"
+      ></circle>
+
+      <line
+        x1="21"
+        y1="21"
+        x2="16.65"
+        y2="16.65"
+      ></line>
+
+    </svg>
+
+  </div>
+
+
+  <div
+    style="
+      text-align:center;
+      color:#666;
+      font-size:13px;
+      margin-top:-20px;
+      margin-bottom:28px;
+    "
+  >
+
+    Busque por @usuário ou pelo nome do fotógrafo
+
+  </div>
+
+
+  <div
+    id="searchMessage"
+    class="search-message hidden"
+  ></div>
+
+
+  <div
+    class="gallery"
+    id="gallery"
+  ></div>
+
+
+</main>
+
+
+
+<!-- =======================================================
+     FOOTER
+     ======================================================= -->
+
+<footer>
+
+
+  <div class="footer-left">
+
+    SAEPVision
+
+  </div>
+
+
+  <div class="socials">
+
+
+    <!-- INSTAGRAM -->
+
+    <svg viewBox="0 0 24 24">
+
+      <path d="
+      M12 2
+      c-2.7 0-3.1 0-4.1.06
+      -1.1.05-1.8.22-2.4.46
+      a4.9 4.9 0 0 0-1.8 1.16
+      4.9 4.9 0 0 0-1.16 1.8
+      c-.24.6-.4 1.3-.46 2.4
+      C2 8.9 2 9.3 2 12
+      s0 3.1.06 4.1
+      c.05 1.1.22 1.8.46 2.4
+      a4.9 4.9 0 0 0 1.16 1.8
+      4.9 4.9 0 0 0 1.8 1.16
+      c.6.24 1.3.4 2.4.46
+      1 .06 1.4.06 4.1.06
+      s3.1 0 4.1-.06
+      c1.1-.05 1.8-.22 2.4-.46
+      a4.9 4.9 0 0 0 1.8-1.16
+      4.9 4.9 0 0 0 1.16-1.8
+      c.24-.6.4-1.3.46-2.4
+      .06-1 .06-1.4.06-4.1
+      s0-3.1-.06-4.1
+      c-.05-1.1-.22-1.8-.46-2.4
+      a4.9 4.9 0 0 0-1.16-1.8
+      4.9 4.9 0 0 0-1.8-1.16
+      c-.6-.24-1.3-.4-2.4-.46
+      C15.1 2 14.7 2 12 2z
+
+      M12 7
+      a5 5 0 1 0 0 10
+      a5 5 0 0 0 0-10z
+
+      M17.2 5.6
+      a1.2 1.2 0 1 1-2.4 0
+      a1.2 1.2 0 0 1 2.4 0z
+      "></path>
+
+    </svg>
+
+
+    <!-- TIKTOK -->
+
+    <svg viewBox="0 0 24 24">
+
+      <path d="
+      M16.5 3
+      c.4 2.1 1.6 3.5 3.5 3.8
+      v3
+      c-1.4 0-2.7-.4-3.8-1.1
+      v6.5
+      c0 3.7-2.4 5.8-5.7 5.8
+      -3 0-5.5-2-5.5-5
+      0-3.1 2.5-5.3 5.8-5.3
+      .3 0 .7 0 1 .1
+      v3
+      c-.3-.1-.6-.1-.9-.1
+      -1.6 0-2.8.9-2.8 2.3
+      0 1.3 1.1 2.2 2.5 2.2
+      1.6 0 2.6-.9 2.6-2.8V3h3.3z
+      "></path>
+
+    </svg>
+
+
+    <!-- LINKEDIN -->
+
+    <svg viewBox="0 0 24 24">
+
+      <path d="
+      M6.5 8.5
+      A1.5 1.5 0 1 0 6.5 5.5
+      A1.5 1.5 0 0 0 6.5 8.5z
+
+      M5 10
+      h3
+      v9
+      H5z
+
+      M10 10
+      h2.9
+      v1.2
+      c.6-.9 1.6-1.5 3.1-1.5
+      3 0 3.5 2 3.5 4.6
+      V19h-3
+      v-4.1
+      c0-1 0-2.3-1.4-2.3
+      -1.4 0-1.6 1.1-1.6 2.2
+      V19h-3z
+      "></path>
+
+    </svg>
+
+
+    <!-- YOUTUBE -->
+
+    <svg viewBox="0 0 24 24">
+
+      <path d="
+      M21.6 7.2
+      c-.2-1.1-1.1-2-2.2-2.2
+      C17.8 4.7 12 4.7 12 4.7
+      s-5.8 0-7.4.3
+      c-1.1.2-2 1.1-2.2 2.2
+      C2.1 8.8 2.1 12 2.1 12
+      s0 3.2.3 4.8
+      c.2 1.1 1.1 2 2.2 2.2
+      1.6.3 7.4.3 7.4.3
+      s5.8 0 7.4-.3
+      c1.1-.2 2-1.1 2.2-2.2
+      .3-1.6.3-4.8.3-4.8
+      s0-3.2-.3-4.8z
+
+      M10 15.5
+      V8.5
+      L16 12z
+      "></path>
+
+    </svg>
+
+
+  </div>
+
+
+  <span>
+
+    &copy; 2026-2027 SAEPVision.
+    Todos os direitos reservados.
+
+  </span>
+
+
+</footer>
+
+
+
+<!-- =======================================================
+     LOGIN
+     ======================================================= -->
+
+<div
+  class="modal-overlay hidden"
+  id="loginModalOverlay"
+>
+
+  <div class="modal-box">
+
+
+    <button
+      class="modal-close"
+      id="closeLoginModal"
+    >
+
+      &times;
+
+    </button>
+
+
+    <h2>Login</h2>
+
+
+    <form id="loginForm" novalidate>
+
+
+      <div class="field">
+
+        <label for="emailInput">
+          E-mail
+        </label>
+
+        <input
+          type="text"
+          id="emailInput"
+          placeholder="Digite seu email"
+        >
+
+        <div
+          class="field-error"
+          id="emailError"
+        ></div>
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="senhaInput">
+          Senha
+        </label>
+
+        <input
+          type="password"
+          id="senhaInput"
+          placeholder="Digite sua senha"
+        >
+
+        <div
+          class="field-error"
+          id="senhaError"
+        ></div>
+
+      </div>
+
+
+      <div
+        class="form-error"
+        id="loginFormError"
+      ></div>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="btn-cancel"
+          id="cancelLoginBtn"
+        >
+
+          Cancelar
+
+        </button>
+
+
+        <button
+          type="submit"
+          class="btn-submit"
+        >
+
+          Login
+
+        </button>
+
+      </div>
+
+
+    </form>
+
+  </div>
+
+</div>
+
+
+
+<!-- =======================================================
+     SIDEBAR DO PERFIL
+     ======================================================= -->
+
+<div
+  class="sidebar-overlay hidden"
+  id="sidebarOverlay"
+></div>
+
+
+<div
+  class="sidebar"
+  id="profileSidebar"
+>
+
+
+  <div class="sidebar-header">
+
+
+    <button
+      class="close-btn"
+      id="closeSidebarBtn"
+    >
+
+      &times;
+
+    </button>
+
+
+    <h3 id="sidebarUserName">
+
+      Fotógrafo
+
+    </h3>
+
+
+    <div class="sidebar-stats">
+
+
+      <div class="stat">
+
+        <div
+          class="num"
+          id="statLikes"
+        >
+          0
+        </div>
+
+        <div class="label">
+          likes
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div
+          class="num"
+          id="statPubs"
+        >
+          0
+        </div>
+
+        <div class="label">
+          publicações
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- BOTÕES -->
+
+  <div class="sidebar-buttons">
+
+
+    <button
+      class="btn-sidebar btn-publicacoes"
+      id="btnSuasPublicacoes"
+    >
+
+      Suas publicações
+
+    </button>
+
+
+    <button
+      class="btn-sidebar btn-nova-pub"
+      id="toggleNovaPub"
+    >
+
+      + Nova publicação
+
+    </button>
+
+
+  </div>
+
+
+
+  <!-- FORMULÁRIO -->
+
+  <form
+    id="publishForm"
+    class="hidden"
+    novalidate
+  >
+
+
+    <h4>
+      Cadastrar publicação
+    </h4>
+
+
+    <div class="field">
+
+      <label for="tituloInput">
+        Título da imagem
+      </label>
+
+      <input
+        type="text"
+        id="tituloInput"
+        placeholder="Digite o título da imagem"
+      >
+
+      <div
+        class="field-error"
+        id="tituloError"
+      ></div>
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="localInput">
+        Fonte de origem
+      </label>
+
+      <input
+        type="text"
+        id="localInput"
+        placeholder="Digite o local onde foi tirada"
+      >
+
+      <div
+        class="field-error"
+        id="localError"
+      ></div>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Imagem
+      </label>
+
+
+      <div class="file-btn-row">
+
+        <label
+          class="file-label-btn"
+          for="imagemInput"
+        >
+
+          Escolher arquivo
+
+        </label>
+
+
+        <span
+          class="file-name"
+          id="fileNameLabel"
+        >
+
+          Nenhum arquivo selecionado
+
+        </span>
+
+      </div>
+
+
+      <input
+        type="file"
+        id="imagemInput"
+        accept=".jpg,.jpeg,.png,.gif,.webp"
+        style="display:none;"
+      >
+
+
+      <div
+        class="field-error"
+        id="imagemError"
+      ></div>
+
+    </div>
+
+
+    <div class="modal-actions">
+
+      <button
+        type="submit"
+        class="btn-submit"
+      >
+
+        Cadastrar
+
+      </button>
+
+    </div>
+
+
+  </form>
+
+
+
+  <!-- PUBLICAÇÕES -->
+
+  <div
+    class="own-publications hidden"
+    id="ownPublicationsPanel"
+  >
+
+    <div class="own-publications-title">
+
+      Suas publicações
+
+    </div>
+
+
+    <div id="ownPubList"></div>
+
+  </div>
+
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   BANCO DE DADOS
+   ========================================================= */
+
+const db = {
+
+  usuarios:[
+
+    {
+      id:1,
+      nome:'Carlos Ferreira',
+      username:'carlos.fotografia',
+      email:'carlos@saep.com',
+      senha:'123456',
+      tipo:'fotografo',
+      avatar:'https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos'
+    },
+
+    {
+      id:2,
+      nome:'Marina Souza',
+      username:'marina.souza',
+      email:'marina@saep.com',
+      senha:'123456',
+      tipo:'comum',
+      avatar:'https://api.dicebear.com/7.x/avataaars/svg?seed=Marina'
+    },
+
+    {
+      id:3,
+      nome:'Ana Beatriz',
+      username:'ana.beatriz',
+      email:'ana@saep.com',
+      senha:'123456',
+      tipo:'fotografo',
+      avatar:'https://api.dicebear.com/7.x/avataaars/svg?seed=Ana'
+    },
+
+    {
+      id:4,
+      nome:'Lucas Almeida',
+      username:'lucas.almeida',
+      email:'lucas@saep.com',
+      senha:'123456',
+      tipo:'fotografo',
+      avatar:'https://api.dicebear.com/7.x/avataaars/svg?seed=Lucas'
+    }
+
+  ],
+
+
+  publicacoes:[
+
+    {
+      id:1,
+      fotografoId:1,
+      titulo:'Pôr do sol na praia',
+      local:'Rio de Janeiro, RJ',
+      imagem:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzXvNVFPYxhJvUv7TaS25FYExsZex-xUsY5olJcYb3tg&s=10'
+    },
+
+    {
+      id:2,
+      fotografoId:1,
+      titulo:'Montanhas ao amanhecer',
+      local:'Serra da Mantiqueira, MG',
+      imagem:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCudfBOpv6UywORiQvadHYfsr_ZM6WFD0KZrTR21FaBQ&s=10'
+    },
+
+    {
+      id:3,
+      fotografoId:3,
+      titulo:'Vida selvagem no Pantanal',
+      local:'Pantanal, MS',
+      imagem:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ1uu7dGl7Pi3yZBsSSadGem4D5pn3vDYgmR3JLIMYCw&s=10'
+    },
+
+    {
+      id:4,
+      fotografoId:3,
+      titulo:'Ruas de Ouro Preto',
+      local:'Ouro Preto, MG',
+      imagem:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-_T0Mn9yDm053GuGCaQHO8DhgF-NcUjpgFkYlJzyJbQ&s=10'
+    },
+
+    {
+      id:5,
+      fotografoId:1,
+      titulo:'Cachoeira escondida',
+      local:'Chapada Diamantina, BA',
+      imagem:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP1W2TLIeH7JxUwKu4ietIA8FjOPdwakMb8dfJZQ3UKw&s=10'
+    },
+
+    {
+      id:6,
+      fotografoId:3,
+      titulo:'Névoa na floresta',
+      local:'Floresta Amazônica, AM',
+      imagem:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDoatuxZ-6X5dJfneNf9u5OeHjzcYgFzY0XBFpSLbeYA&s=10'
+    },
+
+    {
+      id:7,
+      fotografoId:4,
+      titulo:'Arquitetura urbana',
+      local:'São Paulo, SP',
+      imagem:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMmMP67f-bc-Z_x-AN5_htFAvPkjTJfTCyt5-l7qkgmw&s=10'
+    },
+
+    {
+      id:8,
+      fotografoId:4,
+      titulo:'Luz da cidade',
+      local:'Curitiba, PR',
+      imagem:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMDU_mBnCynf0fnzyODJ8eqYcuy0VV5FtSWPOXLSOn3w&s=10'
+    }
+
+  ],
+
+  curtidas:[]
+
+};
+
+
+let nextPubId = 9;
+
+let currentUser = null;
+
+
+/* =========================================================
+   LOCAL STORAGE
+   ========================================================= */
+
+const STORAGE_KEY =
+  'saepvision_db_v2';
+
+
+function salvarDados(){
+
+  localStorage.setItem(
+
+    STORAGE_KEY,
+
+    JSON.stringify({
+
+      publicacoes:
+        db.publicacoes,
+
+      curtidas:
+        db.curtidas
+
+    })
+
+  );
+
+}
+
+
+function carregarDados(){
+
+  try{
+
+    const dadosSalvos =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
+
+    if(!dadosSalvos){
+
+      return;
+
+    }
+
+
+    const dados =
+      JSON.parse(dadosSalvos);
+
+
+    if(
+      Array.isArray(
+        dados.publicacoes
+      )
+    ){
+
+      db.publicacoes =
+        dados.publicacoes;
+
+    }
+
+
+    if(
+      Array.isArray(
+        dados.curtidas
+      )
+    ){
+
+      db.curtidas =
+        dados.curtidas;
+
+    }
+
+
+    const maiorId =
+      db.publicacoes.reduce(
+
+        (maior,pub) =>
+
+          Math.max(
+            maior,
+            Number(pub.id) || 0
+          ),
+
+        0
+
+      );
+
+
+    nextPubId =
+      maiorId + 1;
+
+
+  }catch(erro){
+
+    console.warn(
+      'Erro ao carregar dados.',
+      erro
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   FUNÇÕES AUXILIARES
+   ========================================================= */
+
+function getFotografoById(id){
+
+  return db.usuarios.find(
+    u => u.id === id
+  );
+
+}
+
+
+function countLikes(pubId){
+
+  return db.curtidas.filter(
+    c => c.publicacaoId === pubId
+  ).length;
+
+}
+
+
+function userLiked(userId,pubId){
+
+  return db.curtidas.some(
+
+    c =>
+      c.usuarioId === userId &&
+      c.publicacaoId === pubId
+
+  );
+
+}
+
+
+function totalLikesDoFotografo(fotografoId){
+
+  const pubs =
+    db.publicacoes
+
+      .filter(
+        p =>
+          p.fotografoId ===
+          fotografoId
+      )
+
+      .map(
+        p => p.id
+      );
+
+
+  return db.curtidas.filter(
+
+    c =>
+      pubs.includes(
+        c.publicacaoId
+      )
+
+  ).length;
+
+}
+
+
+function totalPublicacoesDoFotografo(fotografoId){
+
+  return db.publicacoes.filter(
+
+    p =>
+      p.fotografoId ===
+      fotografoId
+
+  ).length;
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+function renderHeader(){
+
+  const headerAvatar =
+    document.getElementById(
+      'headerAvatar'
+    );
+
+
+  const headerUserName =
+    document.getElementById(
+      'headerUserName'
+    );
+
+
+  const btnVerPerfil =
+    document.getElementById(
+      'btnVerPerfil'
+    );
+
+
+  const btnAbrirLogin =
+    document.getElementById(
+      'btnAbrirLogin'
+    );
+
+
+  const btnLogout =
+    document.getElementById(
+      'btnLogout'
+    );
+
+
+  if(currentUser){
+
+    headerAvatar.src =
+      currentUser.avatar;
+
+
+    headerUserName.innerHTML =
+
+      currentUser.nome +
+
+      '<small>@' +
+      currentUser.username +
+      '</small>';
+
+
+    btnVerPerfil.disabled =
+      currentUser.tipo !==
+      'fotografo';
+
+
+    btnAbrirLogin
+      .classList
+      .add('hidden');
+
+
+    btnLogout
+      .classList
+      .remove('hidden');
+
+
+  }else{
+
+    headerAvatar.src =
+      'https://api.dicebear.com/7.x/identicon/svg?seed=guest';
+
+
+    headerUserName.innerHTML =
+      'Visitante<small>@saepvision</small>';
+
+
+    btnVerPerfil.disabled =
+      true;
+
+
+    btnAbrirLogin
+      .classList
+      .remove('hidden');
+
+
+    btnLogout
+      .classList
+      .add('hidden');
+
+  }
+
+}
+
+
+/* =========================================================
+   CORAÇÃO
+   ========================================================= */
+
+function heartSvg(liked){
+
+  const color =
+    liked
+      ? 'rgb(255,0,0)'
+      : 'rgb(0,0,0)';
+
+
+  return `
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="${liked ? color : 'none'}"
+      stroke="${color}"
+      stroke-width="2"
+    >
+
+      <path
+        d="
+          M12 21
+          s-7.5-4.6-10-9.3
+          C0.3 8.4 2 4.5 5.7 4
+          c2-.3 3.8.7 6.3 3.2
+          C14.5 4.7 16.3 3.7 18.3 4
+          c3.7.5 5.4 4.4 3.7 7.7
+          C19.5 16.4 12 21 12 21z
+        "
+      ></path>
+
+    </svg>
+
+  `;
+
+}
+
+
+/* =========================================================
+   GALERIA
+   ========================================================= */
+
+function renderGallery(list){
+
+  const gallery =
+    document.getElementById(
+      'gallery'
+    );
+
+
+  const searchMessage =
+    document.getElementById(
+      'searchMessage'
+    );
+
+
+  gallery.innerHTML = '';
+
+
+  if(list.length === 0){
+
+    gallery.classList
+      .add('hidden');
+
+    searchMessage.classList
+      .remove('hidden');
+
+    searchMessage.textContent =
+      'Nenhuma publicação encontrada.';
+
+    return;
+
+  }
+
+
+  gallery.classList
+    .remove('hidden');
+
+
+  searchMessage.classList
+    .add('hidden');
+
+
+  list.forEach(pub => {
+
+    const fotografo =
+      getFotografoById(
+        pub.fotografoId
+      );
+
+
+    const liked =
+      currentUser
+        ? userLiked(
+            currentUser.id,
+            pub.id
+          )
+        : false;
+
+
+    const likes =
+      countLikes(pub.id);
+
+
+    const card =
+      document.createElement(
+        'div'
+      );
+
+
+    card.className =
+      'card';
+
+
+    card.innerHTML = `
+
+      <div class="img-wrap">
+
+        <img
+          src="${pub.imagem}"
+          alt="Foto ${pub.id}"
+        >
+
+
+        <button
+          class="like-box"
+          data-pubid="${pub.id}"
+          title="Curtir"
+        >
+
+          ${heartSvg(liked)}
+
+          <span class="like-count">
+
+            ${likes}
+
+          </span>
+
+        </button>
+
+
+        <div class="card-info-overlay">
+
+          <h3>
+            Foto ${pub.id}
+          </h3>
+
+          <p>
+            ${pub.titulo}
+          </p>
+
+          <small>
+
+            ${pub.local}
+
+            ${
+              fotografo
+                ? ' • @' +
+                  fotografo.username
+                : ''
+            }
+
+          </small>
+
+        </div>
+
+      </div>
+
+    `;
+
+
+    gallery.appendChild(card);
+
+  });
+
+
+  gallery
+    .querySelectorAll('.like-box')
+    .forEach(btn => {
+
+      btn.addEventListener(
+        'click',
+        function(){
+
+          toggleLike(
+            Number(
+              btn.dataset.pubid
+            )
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   CURTIDA
+   ========================================================= */
+
+function toggleLike(pubId){
+
+  if(!currentUser){
+
+    abrirLoginModal();
+
+    return;
+
+  }
+
+
+  const jaCurtiu =
+    userLiked(
+      currentUser.id,
+      pubId
+    );
+
+
+  if(jaCurtiu){
+
+    db.curtidas =
+      db.curtidas.filter(
+
+        c =>
+          !(
+            c.usuarioId ===
+              currentUser.id &&
+
+            c.publicacaoId ===
+              pubId
+          )
+
+      );
+
+
+  }else{
+
+    db.curtidas.push({
+
+      usuarioId:
+        currentUser.id,
+
+      publicacaoId:
+        pubId
+
+    });
+
+  }
+
+
+  salvarDados();
+
+  aplicarBusca();
+
+
+  if(
+    !profileSidebar
+      .classList
+      .contains('hidden')
+  ){
+
+    renderSidebar();
+
+  }
+
+}
+
+
+/* =========================================================
+   BUSCA
+   ========================================================= */
+
+function aplicarBusca(){
+
+  const termoRaw =
+    document
+      .getElementById(
+        'searchInput'
+      )
+      .value
+      .trim();
+
+
+  if(termoRaw === ''){
+
+    renderGallery(
+      db.publicacoes
+    );
+
+    return;
+
+  }
+
+
+  const termo =
+    termoRaw
+      .replace(/^@/,'')
+      .toLowerCase();
+
+
+  const fotografo =
+    db.usuarios.find(
+
+      u =>
+
+        u.tipo === 'fotografo' &&
+
+        (
+
+          u.username
+            .toLowerCase()
+            === termo ||
+
+          u.nome
+            .toLowerCase()
+            .includes(termo)
+
+        )
+
+    );
+
+
+  if(!fotografo){
+
+    document
+      .getElementById(
+        'gallery'
+      )
+      .classList
+      .add('hidden');
+
+
+    const msg =
+      document.getElementById(
+        'searchMessage'
+      );
+
+
+    msg.classList
+      .remove('hidden');
+
+
+    msg.textContent =
+      'Fotógrafo não encontrado.';
+
+    return;
+
+  }
+
+
+  const pubsDoFotografo =
+    db.publicacoes.filter(
+
+      p =>
+        p.fotografoId ===
+        fotografo.id
+
+    );
+
+
+  renderGallery(
+    pubsDoFotografo
+  );
+
+}
+
+
+document
+  .getElementById(
+    'searchInput'
+  )
+  .addEventListener(
+    'input',
+    aplicarBusca
+  );
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+const loginModalOverlay =
+  document.getElementById(
+    'loginModalOverlay'
+  );
+
+
+function abrirLoginModal(){
+
+  loginModalOverlay
+    .classList
+    .remove('hidden');
+
+}
+
+
+function fecharLoginModal(){
+
+  loginModalOverlay
+    .classList
+    .add('hidden');
+
+}
+
+
+document
+  .getElementById(
+    'btnAbrirLogin'
+  )
+  .addEventListener(
+    'click',
+    abrirLoginModal
+  );
+
+
+document
+  .getElementById(
+    'closeLoginModal'
+  )
+  .addEventListener(
+    'click',
+    fecharLoginModal
+  );
+
+
+document
+  .getElementById(
+    'cancelLoginBtn'
+  )
+  .addEventListener(
+    'click',
+    fecharLoginModal
+  );
+
+
+loginModalOverlay
+  .addEventListener(
+    'click',
+    function(e){
+
+      if(
+        e.target ===
+        loginModalOverlay
+      ){
+
+        fecharLoginModal();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   LOGIN FORM
+   ========================================================= */
+
+document
+  .getElementById(
+    'loginForm'
+  )
+  .addEventListener(
+    'submit',
+    function(e){
+
+      e.preventDefault();
+
+
+      const emailInput =
+        document.getElementById(
+          'emailInput'
+        );
+
+
+      const senhaInput =
+        document.getElementById(
+          'senhaInput'
+        );
+
+
+      const emailError =
+        document.getElementById(
+          'emailError'
+        );
+
+
+      const senhaError =
+        document.getElementById(
+          'senhaError'
+        );
+
+
+      const loginFormError =
+        document.getElementById(
+          'loginFormError'
+        );
+
+
+      emailError.textContent = '';
+
+      senhaError.textContent = '';
+
+      loginFormError.textContent = '';
+
+
+      let valido = true;
+
+
+      const emailRegex =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+      if(
+        !emailRegex.test(
+          emailInput.value.trim()
+        )
+      ){
+
+        emailError.textContent =
+          'Formato de e-mail inválido.';
+
+        valido = false;
+
+      }
+
+
+      if(
+        senhaInput.value.trim() === ''
+      ){
+
+        senhaError.textContent =
+          'A senha é obrigatória.';
+
+        valido = false;
+
+      }
+
+
+      if(!valido){
+
+        return;
+
+      }
+
+
+      const usuario =
+        db.usuarios.find(
+
+          u =>
+
+            u.email.toLowerCase()
+              ===
+            emailInput.value
+              .trim()
+              .toLowerCase()
+
+            &&
+
+            u.senha ===
+              senhaInput.value
+
+        );
+
+
+      if(!usuario){
+
+        loginFormError.textContent =
+          'Credenciais inválidas.';
+
+        return;
+
+      }
+
+
+      currentUser =
+        usuario;
+
+
+      fecharLoginModal();
+
+      renderHeader();
+
+      aplicarBusca();
+
+    }
+  );
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+document
+  .getElementById(
+    'btnLogout'
+  )
+  .addEventListener(
+    'click',
+    function(){
+
+      currentUser = null;
+
+      fecharSidebar();
+
+      renderHeader();
+
+      document.getElementById(
+        'searchInput'
+      ).value = '';
+
+      aplicarBusca();
+
+    }
+  );
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+const profileSidebar =
+  document.getElementById(
+    'profileSidebar'
+  );
+
+
+const sidebarOverlay =
+  document.getElementById(
+    'sidebarOverlay'
+  );
+
+
+const ownPublicationsPanel =
+  document.getElementById(
+    'ownPublicationsPanel'
+  );
+
+
+/*
+=========================================================
+AQUI ESTÁ A CORREÇÃO PRINCIPAL
+=========================================================
+*/
+
+function abrirSidebar(){
+
+  if(
+    !currentUser ||
+    currentUser.tipo !== 'fotografo'
+  ){
+
+    return;
+
+  }
+
+
+  /*
+     Remove hidden do fundo
+  */
+
+  sidebarOverlay
+    .classList
+    .remove('hidden');
+
+
+  /*
+     ADICIONA .open NA SIDEBAR
+
+     Essa era a parte que estava faltando.
+  */
+
+  profileSidebar
+    .classList
+    .add('open');
+
+
+  ownPublicationsPanel
+    .classList
+    .add('hidden');
+
+
+  resetPublishForm();
+
+
+  publishForm
+    .classList
+    .add('hidden');
+
+
+  renderSidebar();
+
+}
+
+
+function fecharSidebar(){
+
+  /*
+     Remove .open
+  */
+
+  profileSidebar
+    .classList
+    .remove('open');
+
+
+  /*
+     Esconde o fundo
+  */
+
+  sidebarOverlay
+    .classList
+    .add('hidden');
+
+}
+
+
+document
+  .getElementById(
+    'btnVerPerfil'
+  )
+  .addEventListener(
+    'click',
+    abrirSidebar
+  );
+
+
+document
+  .getElementById(
+    'closeSidebarBtn'
+  )
+  .addEventListener(
+    'click',
+    fecharSidebar
+  );
+
+
+sidebarOverlay
+  .addEventListener(
+    'click',
+    fecharSidebar
+  );
+
+
+/* =========================================================
+   PERFIL
+   ========================================================= */
+
+function renderSidebar(){
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    'sidebarUserName'
+  ).textContent =
+    currentUser.nome;
+
+
+  document.getElementById(
+    'statLikes'
+  ).textContent =
+    totalLikesDoFotografo(
+      currentUser.id
+    );
+
+
+  document.getElementById(
+    'statPubs'
+  ).textContent =
+    totalPublicacoesDoFotografo(
+      currentUser.id
+    );
+
+
+  renderOwnPubList();
+
+}
+
+
+/* =========================================================
+   SUAS PUBLICAÇÕES
+   ========================================================= */
+
+document
+  .getElementById(
+    'btnSuasPublicacoes'
+  )
+  .addEventListener(
+    'click',
+    function(){
+
+      ownPublicationsPanel
+        .classList
+        .toggle('hidden');
+
+
+      if(
+        !ownPublicationsPanel
+          .classList
+          .contains('hidden')
+      ){
+
+        renderOwnPubList();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   LISTA DE PUBLICAÇÕES
+   ========================================================= */
+
+function renderOwnPubList(){
+
+  const container =
+    document.getElementById(
+      'ownPubList'
+    );
+
+
+  container.innerHTML = '';
+
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+
+  const pubs =
+    db.publicacoes.filter(
+
+      p =>
+        p.fotografoId ===
+        currentUser.id
+
+    );
+
+
+  if(pubs.length === 0){
+
+    container.innerHTML = `
+
+      <div class="empty-msg">
+
+        Você ainda não possui
+        publicações.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  pubs.forEach(pub => {
+
+    const item =
+      document.createElement(
+        'div'
+      );
+
+
+    item.className =
+      'own-pub-item';
+
+
+    item.innerHTML = `
+
+      <img
+        class="own-pub-image"
+        src="${pub.imagem}"
+        alt="Foto ${pub.id}"
+      >
+
+
+      <div class="own-pub-info">
+
+        <div class="own-pub-number">
+
+          Foto ${pub.id}
+
+        </div>
+
+
+        <div class="own-pub-title">
+
+          ${pub.titulo}
+
+        </div>
+
+
+        <div class="own-pub-local">
+
+          ${pub.local}
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="trash-btn"
+        data-pubid="${pub.id}"
+        title="Excluir publicação"
+      >
+
+        🗑️
+
+      </button>
+
+    `;
+
+
+    container.appendChild(item);
+
+  });
+
+
+  container
+    .querySelectorAll('.trash-btn')
+    .forEach(btn => {
+
+      btn.addEventListener(
+        'click',
+        function(){
+
+          excluirPublicacao(
+            Number(
+              btn.dataset.pubid
+            )
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   EXCLUIR PUBLICAÇÃO
+   ========================================================= */
+
+function excluirPublicacao(pubId){
+
+  const confirmar =
+    confirm(
+      'Tem certeza que deseja excluir esta publicação?'
+    );
+
+
+  if(!confirmar){
+
+    return;
+
+  }
+
+
+  db.publicacoes =
+    db.publicacoes.filter(
+
+      p =>
+        p.id !== pubId
+
+    );
+
+
+  db.curtidas =
+    db.curtidas.filter(
+
+      c =>
+        c.publicacaoId !== pubId
+
+    );
+
+
+  salvarDados();
+
+  renderSidebar();
+
+  renderOwnPubList();
+
+  aplicarBusca();
+
+}
+
+
+/* =========================================================
+   NOVA PUBLICAÇÃO
+   ========================================================= */
+
+const publishForm =
+  document.getElementById(
+    'publishForm'
+  );
+
+
+const imagemInput =
+  document.getElementById(
+    'imagemInput'
+  );
+
+
+const fileNameLabel =
+  document.getElementById(
+    'fileNameLabel'
+  );
+
+
+let arquivoSelecionadoBase64 = null;
+
+
+/* =========================================================
+   ABRIR FORMULÁRIO
+   ========================================================= */
+
+document
+  .getElementById(
+    'toggleNovaPub'
+  )
+  .addEventListener(
+    'click',
+    function(){
+
+      if(
+        !currentUser ||
+        currentUser.tipo !== 'fotografo'
+      ){
+
+        return;
+
+      }
+
+
+      publishForm
+        .classList
+        .toggle('hidden');
+
+    }
+  );
+
+
+/* =========================================================
+   ESCOLHER IMAGEM
+   ========================================================= */
+
+imagemInput
+  .addEventListener(
+    'change',
+    function(){
+
+      const file =
+        imagemInput.files[0];
+
+
+      const imagemError =
+        document.getElementById(
+          'imagemError'
+        );
+
+
+      imagemError.textContent = '';
+
+      arquivoSelecionadoBase64 = null;
+
+
+      if(!file){
+
+        fileNameLabel.textContent =
+          'Nenhum arquivo selecionado';
+
+        return;
+
+      }
+
+
+      const tiposValidos = [
+
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/gif',
+        'image/webp'
+
+      ];
+
+
+      if(
+        !tiposValidos.includes(
+          file.type
+        )
+      ){
+
+        fileNameLabel.textContent =
+          'Nenhum arquivo selecionado';
+
+
+        imagemError.textContent =
+          'Formato inválido.';
+
+
+        imagemInput.value = '';
+
+        return;
+
+      }
+
+
+      fileNameLabel.textContent =
+        file.name;
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(e){
+
+          arquivoSelecionadoBase64 =
+            e.target.result;
+
+        };
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
+
+/* =========================================================
+   LIMPAR FORMULÁRIO
+   ========================================================= */
+
+function resetPublishForm(){
+
+  document.getElementById(
+    'tituloInput'
+  ).value = '';
+
+
+  document.getElementById(
+    'localInput'
+  ).value = '';
+
+
+  imagemInput.value = '';
+
+
+  fileNameLabel.textContent =
+    'Nenhum arquivo selecionado';
+
+
+  arquivoSelecionadoBase64 =
+    null;
+
+
+  document.getElementById(
+    'tituloError'
+  ).textContent = '';
+
+
+  document.getElementById(
+    'localError'
+  ).textContent = '';
+
+
+  document.getElementById(
+    'imagemError'
+  ).textContent = '';
+
+}
+
+
+/* =========================================================
+   CADASTRAR PUBLICAÇÃO
+   ========================================================= */
+
+publishForm
+  .addEventListener(
+    'submit',
+    function(e){
+
+      e.preventDefault();
+
+
+      if(
+        !currentUser ||
+        currentUser.tipo !== 'fotografo'
+      ){
+
+        return;
+
+      }
+
+
+      const tituloInput =
+        document.getElementById(
+          'tituloInput'
+        );
+
+
+      const localInput =
+        document.getElementById(
+          'localInput'
+        );
+
+
+      const tituloError =
+        document.getElementById(
+          'tituloError'
+        );
+
+
+      const localError =
+        document.getElementById(
+          'localError'
+        );
+
+
+      const imagemError =
+        document.getElementById(
+          'imagemError'
+        );
+
+
+      tituloError.textContent = '';
+
+      localError.textContent = '';
+
+      imagemError.textContent = '';
+
+
+      let valido = true;
+
+
+      if(
+        tituloInput.value.trim() === ''
+      ){
+
+        tituloError.textContent =
+          'O título da imagem é obrigatório.';
+
+        valido = false;
+
+      }
+
+
+      if(
+        localInput.value.trim() === ''
+      ){
+
+        localError.textContent =
+          'A fonte de origem é obrigatória.';
+
+        valido = false;
+
+      }
+
+
+      if(
+        !arquivoSelecionadoBase64
+      ){
+
+        imagemError.textContent =
+          'A imagem é obrigatória.';
+
+        valido = false;
+
+      }
+
+
+      if(!valido){
+
+        return;
+
+      }
+
+
+      db.publicacoes.push({
+
+        id:
+          nextPubId++,
+
+        fotografoId:
+          currentUser.id,
+
+        titulo:
+          tituloInput.value.trim(),
+
+        local:
+          localInput.value.trim(),
+
+        imagem:
+          arquivoSelecionadoBase64
+
+      });
+
+
+      salvarDados();
+
+
+      resetPublishForm();
+
+
+      publishForm
+        .classList
+        .add('hidden');
+
+
+      renderSidebar();
+
+
+      aplicarBusca();
+
+
+      ownPublicationsPanel
+        .classList
+        .remove('hidden');
+
+
+      renderOwnPubList();
+
+    }
+  );
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
+
+carregarDados();
+
+renderHeader();
+
+renderGallery(
+  db.publicacoes
+);
+
+</script>
+
+
+</body>
+
+</html>

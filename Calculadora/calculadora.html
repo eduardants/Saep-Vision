@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Reino de Gelo</title>
+
+  <link
+    rel="stylesheet"
+    href="calculadora.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       CÉU
+  ========================== -->
+
+  <div class="stars">
+
+    <span>✦</span>
+    <span>✧</span>
+    <span>✦</span>
+    <span>✧</span>
+    <span>✦</span>
+    <span>✧</span>
+
+  </div>
+
+
+  <!-- =========================
+       LUA
+  ========================== -->
+
+  <div class="moon">
+
+    <div class="moon-glow"></div>
+
+  </div>
+
+
+  <!-- =========================
+       NEVE
+  ========================== -->
+
+  <div class="snow snow1">❄</div>
+  <div class="snow snow2">❄</div>
+  <div class="snow snow3">❅</div>
+  <div class="snow snow4">❄</div>
+  <div class="snow snow5">❅</div>
+  <div class="snow snow6">❄</div>
+  <div class="snow snow7">❅</div>
+  <div class="snow snow8">❄</div>
+  <div class="snow snow9">❅</div>
+  <div class="snow snow10">❄</div>
+
+
+  <!-- =========================
+       FLORESTA
+  ========================== -->
+
+  <div class="forest">
+
+
+    <div class="tree tree1">
+
+      <div class="tree-top"></div>
+      <div class="tree-middle"></div>
+      <div class="tree-bottom"></div>
+
+      <div class="trunk"></div>
+
+    </div>
+
+
+    <div class="tree tree2">
+
+      <div class="tree-top"></div>
+      <div class="tree-middle"></div>
+      <div class="tree-bottom"></div>
+
+      <div class="trunk"></div>
+
+    </div>
+
+
+    <div class="tree tree3">
+
+      <div class="tree-top"></div>
+      <div class="tree-middle"></div>
+      <div class="tree-bottom"></div>
+
+      <div class="trunk"></div>
+
+    </div>
+
+
+    <div class="tree tree4">
+
+      <div class="tree-top"></div>
+      <div class="tree-middle"></div>
+      <div class="tree-bottom"></div>
+
+      <div class="trunk"></div>
+
+    </div>
+
+
+    <div class="tree tree5">
+
+      <div class="tree-top"></div>
+      <div class="tree-middle"></div>
+      <div class="tree-bottom"></div>
+
+      <div class="trunk"></div>
+
+    </div>
+
+
+    <div class="tree tree6">
+
+      <div class="tree-top"></div>
+      <div class="tree-middle"></div>
+      <div class="tree-bottom"></div>
+
+      <div class="trunk"></div>
+
+    </div>
+
+
+  </div>
+
+
+  <!-- =========================
+       CHÃO DE NEVE
+  ========================== -->
+
+  <div class="ground"></div>
+
+
+  <!-- =========================
+       CALCULADORA
+  ========================== -->
+
+  <main class="calculator">
+
+
+    <div class="calculator-title">
+
+      <span>❄</span>
+
+      <h1>Reino de Gelo</h1>
+
+      <span>❄</span>
+
+    </div>
+
+
+    <p class="subtitle">
+      Uma calculadora congelante
+    </p>
+
+
+    <!-- TELA -->
+
+    <div class="display">
+
+      <div
+        id="previous"
+        class="previous"
+      ></div>
+
+
+      <div
+        id="current"
+        class="current"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <!-- BOTÕES -->
+
+    <div class="buttons">
+
+
+      <button
+        class="clear"
+        onclick="limpar()"
+      >
+        AC
+      </button>
+
+
+      <button
+        class="delete"
+        onclick="apagar()"
+      >
+        ⌫
+      </button>
+
+
+      <button
+        class="operator"
+        onclick="escolherOperacao('%')"
+      >
+        %
+      </button>
+
+
+      <button
+        class="operator"
+        onclick="escolherOperacao('/')"
+      >
+        ÷
+      </button>
+
+
+      <button
+        onclick="adicionarNumero('7')"
+      >
+        7
+      </button>
+
+
+      <button
+        onclick="adicionarNumero('8')"
+      >
+        8
+      </button>
+
+
+      <button
+        onclick="adicionarNumero('9')"
+      >
+        9
+      </button>
+
+
+      <button
+        class="operator"
+        onclick="escolherOperacao('*')"
+      >
+        ×
+      </button>
+
+
+      <button
+        onclick="adicionarNumero('4')"
+      >
+        4
+      </button>
+
+
+      <button
+        onclick="adicionarNumero('5')"
+      >
+        5
+      </button>
+
+
+      <button
+        onclick="adicionarNumero('6')"
+      >
+        6
+      </button>
+
+
+      <button
+        class="operator"
+        onclick="escolherOperacao('-')"
+      >
+        −
+      </button>
+
+
+      <button
+        onclick="adicionarNumero('1')"
+      >
+        1
+      </button>
+
+
+      <button
+        onclick="adicionarNumero('2')"
+      >
+        2
+      </button>
+
+
+      <button
+        onclick="adicionarNumero('3')"
+      >
+        3
+      </button>
+
+
+      <button
+        class="operator"
+        onclick="escolherOperacao('+')"
+      >
+        +
+      </button>
+
+
+      <button
+        class="zero"
+        onclick="adicionarNumero('0')"
+      >
+        0
+      </button>
+
+
+      <button
+        onclick="adicionarNumero('.')"
+      >
+        .
+      </button>
+
+
+      <button
+        class="equals"
+        onclick="calcular()"
+      >
+        =
+      </button>
+
+
+    </div>
+
+
+    <p class="footer-text">
+      ❄ Bem-vindo ao reino congelado ❄
+    </p>
+
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

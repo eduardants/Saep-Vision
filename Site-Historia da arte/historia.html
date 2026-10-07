@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Museu da História da Arte</title>
+
+  <link
+    rel="stylesheet"
+    href="historia.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================
+       PARTÍCULAS
+  ====================================== -->
+
+  <div class="particles">
+
+    <span>✦</span>
+    <span>·</span>
+    <span>✧</span>
+    <span>·</span>
+    <span>✦</span>
+    <span>·</span>
+    <span>✧</span>
+
+  </div>
+
+
+  <!-- =====================================
+       CABEÇALHO
+  ====================================== -->
+
+  <header>
+
+    <div class="logo">
+
+      <span>🏛</span>
+
+      <div>
+
+        <h2>
+          Museu da História da Arte
+        </h2>
+
+        <small>
+          Uma viagem através dos séculos
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <nav>
+
+      <a href="#inicio">
+        Início
+      </a>
+
+      <a href="#linha-do-tempo">
+        Linha do tempo
+      </a>
+
+      <a href="#periodos">
+        Períodos
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <!-- =====================================
+       ENTRADA DO MUSEU
+  ====================================== -->
+
+  <section
+    id="inicio"
+    class="hero"
+  >
+
+    <div class="hero-content">
+
+
+      <p class="eyebrow">
+        ✦ BEM-VINDO AO MUSEU ✦
+      </p>
+
+
+      <h1>
+
+        A História da Arte
+
+        <span>
+          através dos séculos
+        </span>
+
+      </h1>
+
+
+      <p class="hero-text">
+
+        Explore diferentes períodos,
+        movimentos e artistas que
+        transformaram a maneira como
+        a humanidade enxerga o mundo.
+
+      </p>
+
+
+      <button
+        onclick="entrarNoMuseu()"
+      >
+
+        Entrar no museu
+
+        <span>→</span>
+
+      </button>
+
+
+    </div>
+
+
+    <div class="museum-door">
+
+      <div class="door-left"></div>
+
+      <div class="door-right"></div>
+
+      <div class="door-top">
+
+        ✦
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       LINHA DO TEMPO
+  ====================================== -->
+
+  <section
+    id="linha-do-tempo"
+    class="timeline-section"
+  >
+
+    <p class="section-label">
+      A JORNADA
+    </p>
+
+
+    <h2>
+      Uma história contada através do tempo
+    </h2>
+
+
+    <div class="timeline">
+
+
+      <div
+        class="timeline-item active"
+        onclick="mostrarPeriodo('antiguidade')"
+      >
+
+        <div class="timeline-dot"></div>
+
+        <span>
+          Antiguidade
+        </span>
+
+        <small>
+          c. 3000 a.C.
+        </small>
+
+      </div>
+
+
+      <div
+        class="timeline-item"
+        onclick="mostrarPeriodo('medieval')"
+      >
+
+        <div class="timeline-dot"></div>
+
+        <span>
+          Idade Média
+        </span>
+
+        <small>
+          476 – 1453
+        </small>
+
+      </div>
+
+
+      <div
+        class="timeline-item"
+        onclick="mostrarPeriodo('renascimento')"
+      >
+
+        <div class="timeline-dot"></div>
+
+        <span>
+          Renascimento
+        </span>
+
+        <small>
+          séc. XIV – XVI
+        </small>
+
+      </div>
+
+
+      <div
+        class="timeline-item"
+        onclick="mostrarPeriodo('barroco')"
+      >
+
+        <div class="timeline-dot"></div>
+
+        <span>
+          Barroco
+        </span>
+
+        <small>
+          séc. XVII – XVIII
+        </small>
+
+      </div>
+
+
+      <div
+        class="timeline-item"
+        onclick="mostrarPeriodo('moderno')"
+      >
+
+        <div class="timeline-dot"></div>
+
+        <span>
+          Modernismo
+        </span>
+
+        <small>
+          séc. XIX – XX
+        </small>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- INFORMAÇÃO DO PERÍODO -->
+
+    <div
+      id="periodoInfo"
+      class="period-info"
+    >
+
+      <p>
+        PERÍODO SELECIONADO
+      </p>
+
+      <h3>
+        Antiguidade
+      </h3>
+
+      <span>
+
+        As primeiras grandes civilizações
+        desenvolveram formas de arte
+        ligadas à religião, à política
+        e à representação do poder.
+
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       PERÍODOS
+  ====================================== -->
+
+  <section
+    id="periodos"
+    class="periods"
+  >
+
+    <p class="section-label">
+      AS SALAS DO MUSEU
+    </p>
+
+
+    <h2>
+      Explore os períodos
+    </h2>
+
+
+    <div class="cards">
+
+
+      <!-- ANTIGUIDADE -->
+
+      <article class="card">
+
+        <div class="card-number">
+          01
+        </div>
+
+        <div class="card-icon">
+          🏺
+        </div>
+
+        <h3>
+          Antiguidade
+        </h3>
+
+        <p>
+
+          Egito, Grécia e Roma.
+          Arte, mitologia,
+          arquitetura e religião.
+
+        </p>
+
+        <button
+          onclick="abrirSala('Antiguidade')"
+        >
+
+          Explorar sala →
+
+        </button>
+
+      </article>
+
+
+      <!-- MEDIEVAL -->
+
+      <article class="card">
+
+        <div class="card-number">
+          02
+        </div>
+
+        <div class="card-icon">
+          ⛪
+        </div>
+
+        <h3>
+          Idade Média
+        </h3>
+
+        <p>
+
+          Arte religiosa,
+          manuscritos, vitrais
+          e grandes catedrais.
+
+        </p>
+
+        <button
+          onclick="abrirSala('Idade Média')"
+        >
+
+          Explorar sala →
+
+        </button>
+
+      </article>
+
+
+      <!-- RENASCIMENTO -->
+
+      <article class="card">
+
+        <div class="card-number">
+          03
+        </div>
+
+        <div class="card-icon">
+          🎨
+        </div>
+
+        <h3>
+          Renascimento
+        </h3>
+
+        <p>
+
+          Humanismo, ciência,
+          perspectiva e grandes
+          mestres da pintura.
+
+        </p>
+
+        <button
+          onclick="abrirSala('Renascimento')"
+        >
+
+          Explorar sala →
+
+        </button>
+
+      </article>
+
+
+      <!-- BARROCO -->
+
+      <article class="card">
+
+        <div class="card-number">
+          04
+        </div>
+
+        <div class="card-icon">
+          🕯
+        </div>
+
+        <h3>
+          Barroco
+        </h3>
+
+        <p>
+
+          Drama, contraste,
+          emoção e intensidade
+          religiosa.
+
+        </p>
+
+        <button
+          onclick="abrirSala('Barroco')"
+        >
+
+          Explorar sala →
+
+        </button>
+
+      </article>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       RODAPÉ
+  ====================================== -->
+
+  <footer>
+
+    <div>
+
+      <span>🏛</span>
+
+      <p>
+        Museu da História da Arte
+      </p>
+
+    </div>
+
+
+    <small>
+
+      Conhecimento preserva a memória.
+
+    </small>
+
+  </footer>
+
+
+  <!-- =====================================
+       JAVASCRIPT
+  ====================================== -->
+
+  <script src="historia.js"></script>
+
+</body>
+
+</html>
